@@ -73,6 +73,7 @@ function updateStatus() {
     alert("The End");
     life = 5;
     score = 0;
+    unMark();
     main();
     return;
   }
@@ -96,9 +97,7 @@ function main() {
   unMarkError();
 }
 
-main();
-
-document.addEventListener("keypress", ({ key }) => {
+function action(key) {
   if (key === current) {
     unMarkError();
     unMark();
@@ -111,4 +110,17 @@ document.addEventListener("keypress", ({ key }) => {
     life--;
   }
   updateStatus();
+}
+
+main();
+
+document.addEventListener("keypress", ({ key }) => {
+  action(key);
 });
+
+buttons.forEach((btn) =>
+  btn.addEventListener("click", (event) => {
+    console.log(event.target.innerText.toLowerCase());
+    action(event.target.innerText.toLowerCase());
+  })
+);
